@@ -6,7 +6,7 @@
 void change_name();
 int BUFFER_CLEANER();
 int CREATE_BACKUP();
-void LOWER_CASE(string input);
+void LOWER_CASE(char *input);
 void ADMIN();
 void ls();
 int ADD_STUDENT();
@@ -50,14 +50,14 @@ int main(void){
         break;
     case 2:
         AVRAGE();
-        printf("all students mark has been avraged");
+        printf("all students mark has been avraged\n");
         break;
 
     case 3:
         SEARCH();
         break;
     case 4:
-        admin();
+        ADMIN();
         break;
     case 5:
         return 0;
@@ -110,7 +110,7 @@ int ADD_STUDENT(){
     for (int j = 0; j < 5; j++)
     {
         printf("%d. ",j+1);
-        scanf("%f",&Data.grade[student_count][j]);
+        scanf("%.3f",&Data.grade[student_count][j]);
         if ((Data.grade[student_count][j])<0.0 || (Data.grade[student_count][j])>20.0)//not sure about the op 
         {
             printf("invalid mark!!!!!\n");
@@ -118,7 +118,9 @@ int ADD_STUDENT(){
         }   
     }
     student_count++;
-    }
+    printf("the student has been addes succesfully!!\n");
+}
+
 int AVRAGE(){
     for (int i = 0; i < student_count; i++)
     {
@@ -135,7 +137,7 @@ int AVRAGE(){
 int grades_LIST(int x){
     for (int i = 0; i < 5; i++)
     {
-        printf("%d. %f\n",i+1,Data.grade[x][i]);
+        printf("%d. %.3f\n",i+1,Data.grade[x][i]);
     }
     return 0;
     
@@ -165,6 +167,7 @@ int SEARCH(){
         grades_LIST(found_std);
         AVRAGE();
         printf("Avrage: %.3f\n",Data.avrage[found_std]);
+        printf(" condition: %s",check_pass(found_std));
         
     }
     else {
@@ -211,10 +214,10 @@ int CREATE_BACKUP(){
         fprintf(backup_todo,"student mark:\n");
         for (int j = 0; j < 5; j++)
         {
-            fprintf(backup_todo,"%d. %f\n",j+1,Data.grade[i][j]);
+            fprintf(backup_todo,"%d. %.3f\n",j+1,Data.grade[i][j]);
         }
         AVRAGE();
-        fprintf(backup_todo,"student avrage:%f",Data.avrage[i]);
+        fprintf(backup_todo,"student avrage:%.3f",Data.avrage[i]);
     }
         
 
@@ -242,7 +245,7 @@ void ADMIN(){
         printf("choose one of there option below:\n");
         printf("1.chnage student info\n");
         printf("2.change student grade\n");
-        printf("3.information of all students\n ");
+        printf("3.information of all students\n");
         printf("4.delete student from the list\n");
         printf("5.take backup from students info and grade\n");
         printf("6.exit\n");
@@ -252,7 +255,7 @@ void ADMIN(){
         {
         case 1:
             change_name();
-            continue;
+            ADMIN();
         case 2:
             change_grade();
             ADMIN();
@@ -332,8 +335,8 @@ void change_grade(){
         
         printf("grades for studen :%s\n",Data.name[buff]);
         grades(buff);
-        avrage();
-        printf("avrage : %f",Data.avrage[buff]);
+        AVRAGE();
+        printf("avrage : %.3f",Data.avrage[buff]);
         printf("6.exit");
         printf("choose on option\n");
         scanf("%d",&input);
@@ -361,7 +364,7 @@ void change_grade(){
 void grades(int x){
     for (int i = 0; i < 5; i++)
     {
-        printf("%d.%f\n",i+1,Data.grade[x][i]);
+        printf("%d.%.3f\n",i+1,Data.grade[x][i]);
     }
     
 
