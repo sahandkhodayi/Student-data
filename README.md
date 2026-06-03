@@ -21,7 +21,7 @@ gcc grade_system.c -o grade_system
 
 ---
 
-🎮 How to Use
+🎮 How to Use🎮
 
 Main Menu:
 
